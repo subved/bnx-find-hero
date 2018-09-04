@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.HeroMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.Hero">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="buyer" jdbcType="VARCHAR" property="buyer" />
+    <result column="seller" jdbcType="VARCHAR" property="seller" />
+    <result column="pay_addr" jdbcType="VARCHAR" property="payAddr" />
+    <result column="career_address" jdbcType="VARCHAR" property="careerAddress" />
+    <result column="token_id" jdbcType="VARCHAR" property="tokenId" />
+    <result column="block_number" jdbcType="INTEGER" property="blockNumber" />
+    <result column="strength" jdbcType="INTEGER" property="strength" />
+    <result column="agility" jdbcType="INTEGER" property="agility" />
+    <result column="physique" jdbcType="INTEGER" property="physique" />
+    <result column="volition" jdbcType="INTEGER" property="volition" />
+    <result column="brains" jdbcType="INTEGER" property="brains" />
+    <result column="charm" jdbcType="INTEGER" property="charm" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>
