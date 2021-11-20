@@ -1,7 +1,7 @@
 package com.company.project.service.impl;
 
-import com.company.project.Constant.Price;
 import com.company.project.cache.HeroListCache;
+import com.company.project.cache.Price;
 import com.company.project.dao.HeroMapper;
 import com.company.project.model.Hero;
 import com.company.project.model.HeroInfo;
