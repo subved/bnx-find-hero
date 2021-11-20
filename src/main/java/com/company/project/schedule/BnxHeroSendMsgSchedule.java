@@ -10,6 +10,8 @@ import com.company.project.tools.TelegramSendTool;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class BnxHeroSendMsgSchedule {
+    private final static Logger logger = LoggerFactory.getLogger(BnxHeroFindSchedule.class);
     @Autowired
     private RestTemplate restTemplate;
 
@@ -33,7 +36,8 @@ public class BnxHeroSendMsgSchedule {
     private TelegramSendTool telegramSendTool;
 
     //@Scheduled(fixedDelay = 5000)
-    @Scheduled(cron = "0 * * * * *")
+    //每2分钟执行一次
+    @Scheduled(cron = "0 */2 * * * *")
     private void cronScheduleFindHero(){
         while (HeroListCache.getQueue().size()>0){
             HeroInfo heroInfo = HeroListCache.getQueue().poll();
@@ -41,7 +45,7 @@ public class BnxHeroSendMsgSchedule {
                 heroService.save(heroInfo);
                 telegramSendTool.sendTelegram(heroInfo);
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

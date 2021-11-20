@@ -3,6 +3,8 @@ package com.company.project.schedule;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.company.project.Constant.Price;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -13,10 +15,12 @@ import javax.annotation.PostConstruct;
 
 @Component
 public class BnxAndGoldPriceFindScheduel {
+    private final static Logger logger = LoggerFactory.getLogger(BnxHeroFindSchedule.class);
     @Autowired
     private RestTemplate restTemplate;
 
-    @Scheduled(cron = "0/20 * * * * *")
+    //启动时和每30s执行一次
+    @Scheduled(cron = "0/30 * * * * *")
     @PostConstruct
     private void cronScheduleFindHero(){
 
@@ -29,8 +33,8 @@ public class BnxAndGoldPriceFindScheduel {
         String resultGold = restTemplate.getForObject(urlGold, String.class);
         double bnxPrice = findPrice(resultBnx);
         double goldPrice = findPrice(resultGold);
-        System.out.println("当前bnx币价"+bnxPrice);
-        System.out.println("当前gold币价"+goldPrice);
+        logger.info("当前bnx币价"+bnxPrice);
+        logger.info("当前gold币价"+goldPrice);
         Price.setBnxPrice(bnxPrice);
         Price.setGoldPrice(goldPrice);
 

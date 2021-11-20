@@ -3,11 +3,14 @@ package com.company.project.schedule;
 import com.alibaba.fastjson.JSONObject;
 import com.company.project.model.Hero;
 import com.company.project.service.HeroService;
+import com.company.project.service.impl.HeroServiceImpl;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -16,14 +19,16 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class BnxHeroFindSchedule {
+    private final static Logger logger = LoggerFactory.getLogger(BnxHeroFindSchedule.class);
     @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
     private HeroService heroService;
 
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 */2 * * * *")
     private void cronScheduleFindHero(){
+
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
 //        options.addArguments("headless");

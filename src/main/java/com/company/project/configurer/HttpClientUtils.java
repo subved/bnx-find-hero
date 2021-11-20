@@ -56,7 +56,7 @@ public class HttpClientUtils {
         connMgr.setMaxTotal(200);
         connMgr.setDefaultMaxPerRoute(100);
         b.setConnectionManager(connMgr);
-        b.setProxy(new HttpHost("127.0.0.1",7890));
+        //b.setProxy(new HttpHost("127.0.0.1",7890));
         CloseableHttpClient client = b.build();
  
         return client;
