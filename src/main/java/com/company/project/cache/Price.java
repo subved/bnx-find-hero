@@ -1,4 +1,4 @@
-package com.company.project.Constant;
+package com.company.project.cache;
 
 public class Price {
     private static  Double BnxPrice;
