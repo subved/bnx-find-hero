@@ -16,4 +16,6 @@ public interface HeroService extends Service<Hero> {
     HeroInfo analyse(Hero hero);
 
     List<HeroInfo> findHeroList();
+
+    public int selectCount(Hero hero);
 }

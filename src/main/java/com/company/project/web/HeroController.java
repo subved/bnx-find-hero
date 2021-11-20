@@ -50,7 +50,7 @@ public class HeroController {
         return ResultGenerator.genSuccessResult(hero);
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
         PageHelper.startPage(page, size);
         List<HeroInfo> list = heroService.findHeroList();

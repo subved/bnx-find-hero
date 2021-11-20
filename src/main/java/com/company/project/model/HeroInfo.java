@@ -9,7 +9,7 @@ import java.util.Date;
 public class HeroInfo extends  Hero{
    Double bestBackDay;
 
-   Integer bestBacklevel;
+   Integer bestBackLevel;
 
    Integer bestWages;
 
@@ -23,12 +23,12 @@ public class HeroInfo extends  Hero{
       this.bestBackDay = bestBackDay;
    }
 
-   public Integer getBestBacklevel() {
-      return bestBacklevel;
+   public Integer getBestBackLevel() {
+      return bestBackLevel;
    }
 
-   public void setBestBacklevel(Integer bestBacklevel) {
-      this.bestBacklevel = bestBacklevel;
+   public void setBestBackLevel(Integer bestBackLevel) {
+      this.bestBackLevel = bestBackLevel;
    }
 
    public Integer getBestWages() {

@@ -7,8 +7,10 @@ import com.company.project.model.Hero;
 import com.company.project.model.HeroInfo;
 import com.company.project.service.HeroService;
 import com.company.project.core.AbstractService;
+import com.company.project.tools.TelegramSendTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +36,8 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
     private final long priceToBnx = 1000000000000000000L;
     private final String priceToBnxStr = "1000000000000000000";
 
+    @Autowired
+    TelegramSendTool telegramSendTool;
 
     @Override
     public void analyseList(List<Hero> heroList) {
@@ -41,7 +45,11 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
             HeroListCache.reduceList();
         }
         for (Hero hero : heroList){
-            HeroListCache.add(analyseHeroPrice(hero));
+            HeroInfo heroInfo = analyseHeroPrice(hero);
+            if (heroInfo !=null &&heroInfo.getBestBackDay()<50.0){
+                HeroListCache.add(heroInfo);
+                HeroListCache.getQueue().add(heroInfo);
+            }
         }
         logger.info("analyseList success");
     }
@@ -56,6 +64,11 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
         List<HeroInfo> heroList = HeroListCache.getHeroInfoList();
         heroList.sort(Comparator.comparing(HeroInfo::getBestBackDay));
         return heroList.subList(0,10);
+    }
+
+    @Override
+    public int selectCount(Hero hero) {
+        return heroMapper.selectCount(hero);
     }
 
 
@@ -90,7 +103,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
     private HeroInfo  analyseThief(Hero hero){
         if(hero.getAgility()>85 && hero.getStrength()>=61){
             int wagesBase = (int) (((hero.getAgility()-85) * 0.5 + 1 )*288);
-            calculateInvestmentBack(hero,wagesBase);
+            return calculateInvestmentBack(hero,wagesBase);
         }
         return null;
     }
@@ -98,7 +111,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
     private HeroInfo  analyseMage(Hero hero){
         if(hero.getBrains()>85 && hero.getCharm()>=61) {
             int wagesBase = (int) (((hero.getBrains() - 85) * 0.5 + 1) * 288);
-            calculateInvestmentBack(hero, wagesBase);
+            return calculateInvestmentBack(hero, wagesBase);
         }
         return null;
     }
@@ -126,7 +139,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
 
             if (backDayTmp < heroInfo.getBestBackDay()){
                 heroInfo.setBestBackDay(backDayTmp);
-                heroInfo.setBestBacklevel(2);
+                heroInfo.setBestBackLevel(2);
                 heroInfo.setBestWages(wages);
                 heroInfo.setCostDollar(costDollar);
             }
@@ -148,7 +161,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
             }
             if (backDayTmp < heroInfo.getBestBackDay()){
                 heroInfo.setBestBackDay(backDayTmp);
-                heroInfo.setBestBacklevel(3);
+                heroInfo.setBestBackLevel(3);
                 heroInfo.setBestWages(wages);
                 heroInfo.setCostDollar(costDollar);
             }
@@ -176,7 +189,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
             }
             if (backDayTmp < heroInfo.getBestBackDay()){
                 heroInfo.setBestBackDay(backDayTmp);
-                heroInfo.setBestBacklevel(4);
+                heroInfo.setBestBackLevel(4);
                 heroInfo.setBestWages(wages);
                 heroInfo.setCostDollar(costDollar);
             }
@@ -209,7 +222,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
             }
             if (backDayTmp < heroInfo.getBestBackDay()){
                 heroInfo.setBestBackDay(backDayTmp);
-                heroInfo.setBestBacklevel(5);
+                heroInfo.setBestBackLevel(5);
                 heroInfo.setBestWages(wages);
                 heroInfo.setCostDollar(costDollar);
             }
