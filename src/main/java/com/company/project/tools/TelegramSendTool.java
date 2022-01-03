@@ -54,7 +54,8 @@ public class TelegramSendTool {
                 "最佳日产金币(100%倍率):{14} \n" +
                 "总花费:{15} usdt\n" +
                 "当前bnx价格:{16} usdt\n" +
-                "当前gold价格:{17} usdt\n" ;
+                "当前gold价格:{17} usdt\n" +
+                "当前crystal价格:{18} usdt\n" ;
 
         String context2 = MessageFormat.format(stringTemplate,
                 "https://market.binaryx.pro/#/oneoffsale/detail/"+ heroInfo.getOrderId(),
@@ -74,7 +75,9 @@ public class TelegramSendTool {
                 heroInfo.getBestWages(),
                 heroInfo.getCostDollar(),
                 Price.getBnxPrice(),
-                String.format("%.6f", Price.getGoldPrice()));
+                String.format("%.6f", Price.getGoldPrice()),
+                String.format("%.6f", Price.getCrystalPrice())
+        );
         System.out.println(context2);
         return  context2;
 
