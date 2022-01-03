@@ -37,7 +37,7 @@ public class BnxHeroSendMsgSchedule {
 
     //@Scheduled(fixedDelay = 5000)
     //每2分钟执行一次
-    @Scheduled(cron = "0 */2 * * * *")
+    //@Scheduled(cron = "0 */2 * * * *")
     private void cronScheduleFindHero(){
         while (HeroListCache.getQueue().size()>0){
             HeroInfo heroInfo = HeroListCache.getQueue().poll();

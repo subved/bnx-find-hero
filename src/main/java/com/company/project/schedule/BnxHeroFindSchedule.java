@@ -26,7 +26,7 @@ public class BnxHeroFindSchedule {
     @Autowired
     private HeroService heroService;
 
-    @Scheduled(cron = "0 */2 * * * *")
+    //@Scheduled(cron = "0 */2 * * * *")
     private void cronScheduleFindHero(){
 
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe");
@@ -37,7 +37,7 @@ public class BnxHeroFindSchedule {
         WebDriver driver = new ChromeDriver();
         JSONObject jsonResutl = new JSONObject();
         try {
-            driver.get("https://market.binaryx.pro/info/getSales?page=1&page_size=100&status=selling&name=&sort=time&direction=desc&career=&value_attr=&start_value=&end_value=&pay_addr=");
+            driver.get("https://market.binaryx.pro/getSales?page=1&page_size=100&status=selling&name=&sort=time&direction=desc&career=&value_attr=&start_value=&end_value=&pay_addr=");
             String resultStr = driver.getPageSource().toString();
             String resultStrSub = resultStr.substring(resultStr.indexOf('{'),resultStr.lastIndexOf('}')+1);
             jsonResutl= JSONObject.parseObject(resultStrSub);

@@ -1,5 +1,6 @@
 package com.company.project.tools;
 
+import com.company.project.cache.Price;
 import com.company.project.model.HeroInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -30,7 +31,7 @@ public class TelegramSendTool {
         map.add("chat_id", "-730219795");
         map.add("text",parseString(heroInfo));
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(map, headers);
-        String resultBnx = restTemplate.postForObject("https://api.telegram.org/*******/sendMessage",requestEntity,String.class);
+        String resultBnx = restTemplate.postForObject("https://api.telegram.org/bot2140789639:AAHsJV8_0pMfNUjBK5Wag1_-m25ERKzj8bg/sendMessage",requestEntity,String.class);
         //System.out.printf(resultBnx);
     }
 
@@ -48,10 +49,12 @@ public class TelegramSendTool {
                 "意志:{9} \n" +
                 "智力:{10} \n" +
                 "精神:{11} \n" +
-                "最佳回本天数:{12} \n" +
-                "最佳回本等级:{13} \n" +
-                "最佳日产金币:{14} \n" +
-                "总花费:{15} 美刀\n" ;
+                "最佳回本天数(100%倍率):{12} \n" +
+                "最佳回本等级(100%倍率):{13} \n" +
+                "最佳日产金币(100%倍率):{14} \n" +
+                "总花费:{15} usdt\n" +
+                "当前bnx价格:{16} usdt\n" +
+                "当前gold价格:{17} usdt\n" ;
 
         String context2 = MessageFormat.format(stringTemplate,
                 "https://market.binaryx.pro/#/oneoffsale/detail/"+ heroInfo.getOrderId(),
@@ -69,7 +72,9 @@ public class TelegramSendTool {
                 heroInfo.getBestBackDay(),
                 heroInfo.getBestBackLevel(),
                 heroInfo.getBestWages(),
-                heroInfo.getCostDollar());
+                heroInfo.getCostDollar(),
+                Price.getBnxPrice(),
+                String.format("%.6f", Price.getGoldPrice()));
         System.out.println(context2);
         return  context2;
 
