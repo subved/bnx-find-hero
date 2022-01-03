@@ -36,7 +36,7 @@ public class CrystalPriceFindScheduel {
         double busdBnbPrice =findPrice(resultBusd);
         double crystalBusdPrice = crystalBnbPrice / busdBnbPrice;
         logger.info("当前crystal币价"+crystalBusdPrice);
-        Price.setGoldPrice(crystalBusdPrice);
+        Price.setCrystalPrice(crystalBusdPrice);
     }
 
     private double findPrice(String str) {

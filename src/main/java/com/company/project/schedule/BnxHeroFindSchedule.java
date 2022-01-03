@@ -26,7 +26,7 @@ public class BnxHeroFindSchedule {
     @Autowired
     private HeroService heroService;
 
-    //@Scheduled(cron = "0 */2 * * * *")
+    @Scheduled(cron = "0 */1 * * * *")
     private void cronScheduleFindHero(){
 
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe");

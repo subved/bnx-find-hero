@@ -20,8 +20,8 @@ public class BnxAndGoldPriceFindScheduel {
     private RestTemplate restTemplate;
 
     //启动时和每30s执行一次
-    //@Scheduled(cron = "0/30 * * * * *")
-    //@PostConstruct
+    @Scheduled(cron = "0/30 * * * * *")
+    @PostConstruct
     private void cronScheduleFindHero(){
 
 

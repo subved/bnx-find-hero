@@ -137,27 +137,39 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
     }
 
     private HeroInfo  analyseDruid(Hero hero){
-        if(hero.getStrength()>85 && hero.getAgility()>=61){
+        if(hero.getBrains()>85 && hero.getPhysique()>=61){
             double wagesBase =  ((hero.getBrains()-85) * 0.0004 + 0.0008  )*28800;
             return calculateCrystalInvestmentBack(hero,wagesBase);
         }
-        return null;
+        //黑工
+        else {
+            double wagesBase =  0.0008 *28800;
+            return calculateCrystalInvestmentBack(hero,wagesBase);
+        }
     }
 
     private HeroInfo  analysePriest(Hero hero){
-        if(hero.getStrength()>85 && hero.getAgility()>=61){
+        if(hero.getBrains()>85 && hero.getVolition()>=61){
             double wagesBase =  ((hero.getBrains()-85) * 0.0004 + 0.0008 )*28800;
             return calculateCrystalInvestmentBack(hero,wagesBase);
         }
-        return null;
+        //黑工
+        else {
+            double wagesBase =  0.0008 *28800;
+            return calculateCrystalInvestmentBack(hero,wagesBase);
+        }
     }
 
     private HeroInfo  analyseKnight(Hero hero){
-        if(hero.getStrength()>85 && hero.getAgility()>=61){
+        if(hero.getPhysique()>85 && hero.getStrength()>=61){
             double wagesBase = ((hero.getPhysique()-85) * 0.0004 + 0.0008 )*28800;
             return calculateCrystalInvestmentBack(hero,wagesBase);
         }
-        return null;
+       //黑工
+        else {
+            double wagesBase =  0.0008 *28800;
+            return calculateCrystalInvestmentBack(hero,wagesBase);
+        }
     }
 
     private HeroInfo  calculateInvestmentBack (Hero hero,int wagesBase){
