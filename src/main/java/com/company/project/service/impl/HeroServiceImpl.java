@@ -135,7 +135,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
         }
         return null;
     }
-
+    //主智力 副体质
     private HeroInfo  analyseDruid(Hero hero){
         if(hero.getBrains()>85 && hero.getPhysique()>=61){
             double wagesBase =  ((hero.getBrains()-85) * 0.0004 + 0.0008  )*28800;
@@ -147,7 +147,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
             return calculateCrystalInvestmentBack(hero,wagesBase);
         }
     }
-
+    //主智力 副意志
     private HeroInfo  analysePriest(Hero hero){
         if(hero.getBrains()>85 && hero.getVolition()>=61){
             double wagesBase =  ((hero.getBrains()-85) * 0.0004 + 0.0008 )*28800;
@@ -159,7 +159,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
             return calculateCrystalInvestmentBack(hero,wagesBase);
         }
     }
-
+    //主体质 副力量
     private HeroInfo  analyseKnight(Hero hero){
         if(hero.getPhysique()>85 && hero.getStrength()>=61){
             double wagesBase = ((hero.getPhysique()-85) * 0.0004 + 0.0008 )*28800;
@@ -177,7 +177,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
 
         heroInfo.setBestBackDay(99999.999);
         int backLevel = 0;
-        //假设升2级
+        //假设升2级  无法打高级工
         if(hero.getLevel()<2){
             //1升2
             int wages =  288 * 2  ;
@@ -286,10 +286,10 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
 
         heroInfo.setBestBackDay(99999.999);
         int backLevel = 0;
-        //假设升2级
+        //假设升2级 无法打高级工
         if(hero.getLevel()<2){
             //1升2
-            double wages =  0.0008 * 28800 * 2  ;
+            double wages =  0.0008 * 28800 * 1.1  ;
             double costDollar =  (new BigDecimal(hero.getPrice()).divide(new BigDecimal(priceToBnxStr)).doubleValue()
                     * Price.getBnxPrice() + 25000 * Price.getGoldPrice());
             double backDayTmp = costDollar / (wages * Price.getCrystalPrice());
@@ -305,7 +305,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
         if (hero.getLevel()<3){
             double backDayTmp= 999999.0;
             double costDollar = 0;
-            double wages =  wagesBase *2 *2 ;
+            double wages =  wagesBase *1.3 ;
             //1升3
             if(hero.getLevel() ==1){
                 costDollar = (new BigDecimal(hero.getPrice()).divide(new BigDecimal(priceToBnxStr)).doubleValue() * Price.getBnxPrice() + 125000 * Price.getGoldPrice());
@@ -327,8 +327,9 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
         if (hero.getLevel()<4){
             double backDayTmp= 999999.0;
             double costDollar = 0;
-            double wages =  wagesBase *2 *2 *2;
+            double wages =  wagesBase *1.6;
             //1升4
+
             if(hero.getLevel() ==1){
                 //3级
                 costDollar =(new BigDecimal(hero.getPrice()).divide(new BigDecimal(priceToBnxStr)).doubleValue() * Price.getBnxPrice() + 525000 * Price.getGoldPrice());
@@ -355,7 +356,7 @@ public class HeroServiceImpl extends AbstractService<Hero> implements HeroServic
         if (hero.getLevel()<5){
             double backDayTmp= 999999.0;
             double costDollar = 0;
-            double wages =  wagesBase *2 *2 *2 *2;
+            double wages =  wagesBase *2;
             //1升5
             if(hero.getLevel() ==1){
                 //3级
