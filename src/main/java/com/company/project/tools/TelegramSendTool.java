@@ -31,7 +31,6 @@ public class TelegramSendTool {
         map.add("chat_id", "-730219795");
         map.add("text",parseString(heroInfo));
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(map, headers);
-        String resultBnx = restTemplate.postForObject("https://api.telegram.org/bot2140789639:AAHsJV8_0pMfNUjBK5Wag1_-m25ERKzj8bg/sendMessage",requestEntity,String.class);
         //System.out.printf(resultBnx);
     }
 

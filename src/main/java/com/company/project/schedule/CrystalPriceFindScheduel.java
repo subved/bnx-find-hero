@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.util.Objects;
 
 
 @Component
@@ -28,15 +29,21 @@ public class CrystalPriceFindScheduel {
 
         String urlBnx = "https://bsc.streamingfast.io/subgraphs/name/pancakeswap/exchange-v2";
         JSONObject json = new JSONObject();
-        json.put("query","\n      query derivedTokenPriceData {\n        \n   lastest:token(id:\"0x6ad7e691f1d2723523e70751f82052a8a2c47726\") { \n        derivedBNB\n      } \n}");
-        String resultCrystal = restTemplate.postForObject(urlBnx,json, String.class);
-        json.put("query","\n      query derivedTokenPriceData {\n        \n   lastest:token(id:\"0xe9e7cea3dedca5984780bafc599bd69add087d56\") { \n        derivedBNB\n      } \n}");
-        String resultBusd = restTemplate.postForObject(urlBnx,json, String.class);
-        double crystalBnbPrice =findPrice(resultCrystal);
-        double busdBnbPrice =findPrice(resultBusd);
-        double crystalBusdPrice = crystalBnbPrice / busdBnbPrice;
-        logger.info("当前crystal币价"+crystalBusdPrice);
-        Price.setCrystalPrice(crystalBusdPrice);
+        try {
+            json.put("query","\n      query derivedTokenPriceData {\n        \n   lastest:token(id:\"0x6ad7e691f1d2723523e70751f82052a8a2c47726\") { \n        derivedBNB\n      } \n}");
+            String resultCrystal = restTemplate.postForObject(urlBnx,json, String.class);
+            json.put("query","\n      query derivedTokenPriceData {\n        \n   lastest:token(id:\"0xe9e7cea3dedca5984780bafc599bd69add087d56\") { \n        derivedBNB\n      } \n}");
+            String resultBusd = restTemplate.postForObject(urlBnx,json, String.class);
+            double crystalBnbPrice =findPrice(resultCrystal);
+            double busdBnbPrice =findPrice(resultBusd);
+            double crystalBusdPrice = crystalBnbPrice / busdBnbPrice;
+            logger.info("当前crystal币价"+crystalBusdPrice);
+            Price.setCrystalPrice(crystalBusdPrice);
+        }
+        catch (Exception e){
+            logger.error("",e);
+        }
+
     }
 
     private double findPrice(String str) {
